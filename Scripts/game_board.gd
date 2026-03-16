@@ -18,7 +18,16 @@ func _ready() -> void:
 func _empty_cell() -> Dictionary:
 	return{
 		"type": GameData.PieceType.EMPTY,
-		"mirror_dir": GameData.MirrorDIr
+		"mirror_dir": GameData.MirrorDir.NE,
+		"double_sided": false,
+		"rootable": false,
+		"slide_axis": "",
+		"slide_min": 0,
+		"slide_max": 0,
+		"laser_dir": GameData.Dir.RIGHT,
+		"color_index": 0,
+		"hit": false,
+		
 	}
 
 
@@ -27,7 +36,7 @@ func _init_grid():
 	for x in range(grid_width):
 		var col := []
 		for y in range(grid_height):
-			col.append(GameData.PieceType.EMPTY)
+			col.append(_empty_cell())
 		grid.append(col)
 
 func _draw_tiles():
