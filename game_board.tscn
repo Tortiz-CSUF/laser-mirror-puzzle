@@ -1,3 +1,14 @@
 [gd_scene format=3 uid="uid://ducaojv6sdgdf"]
 
+[ext_resource type="Script" uid="uid://cbyt6dpuonjvo" path="res://Scripts/game_board.gd" id="1_xrvgy"]
+
 [node name="GameBoard" type="Node2D" unique_id=2076274709]
+script = ExtResource("1_xrvgy")
+
+[node name="TileBackground" type="Node2D" parent="." unique_id=2102863410]
+
+[node name="Pieces" type="Node2D" parent="." unique_id=1791225290]
+
+[node name="LaserBeams" type="Node2D" parent="." unique_id=1998531970]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=458400049]
