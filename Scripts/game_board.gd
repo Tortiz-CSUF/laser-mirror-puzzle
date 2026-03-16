@@ -222,7 +222,7 @@ func _draw_mirror(center: Vector2, data: Dictionary):
 	
 	
 ## Laser System
-func _cast_all_laser():
+func _cast_all_lasers():
 	var beam_parent := $LaserBeams
 	for child in beam_parent.get_children():
 		child.queue_free()
@@ -230,7 +230,7 @@ func _cast_all_laser():
 	# reset all hits
 	for x in range(grid_width):
 		for y in range(grid_height):
-			grid_height[x][y]["hit"] = false
+			grid[x][y]["hit"] = false
 			
 	# cast from every laser source
 	for x in range(grid_width):
