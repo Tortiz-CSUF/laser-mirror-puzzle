@@ -114,7 +114,7 @@ func _edge_point(cell: Vector2i, dir: int) -> Vector2:
 	return center
 
 
-func is_mirror(type: int) -> bool:
+func _is_mirror(type: int) -> bool:
 	return type in [
 		GameData.PieceType.MIRROR_STATIC_SINGLE,
 		GameData.PieceType.MIRROR_STATIC_DOUBLE,
@@ -167,12 +167,46 @@ func _draw_piece(cell: Vector2i):
 			GameData.Dir.LEFT: arrow_end -= Vector2(quarter, 0)
 			GameData.Dir.DOWN: arrow_end += Vector2(0, quarter)
 			GameData.Dir.UP: arrow_end -= Vector2(0, quarter)
-		draw_line(center, quarter, Color.WHITE, 2.0)
+		draw_line(center, arrow_end, Color.WHITE, 2.0)
+		
+	elif type == GameData.PieceType.GOAL:
+		var color: Color = GameData.COLOR_GOAL_ACTIVE if data["hit"] else GameData.COLOR_GOAL_INACTIVE
+		draw_circle(center, quarter, color)
+		
+	elif _is_mirror(type):
+		_draw_mirror(center, data)
+		
+	elif type == GameData.PieceType.BARRIER:
+		var r := Rect2(center - Vector2(half - 4, half - 4), Vector2((half - 4) * 2, (half - 4) * 2 ))
+		draw_rect(r, GameData.COLOR_BARRIER)
+		
+	elif type == GameData.PieceType.BOMB:
+		var tex := preload("res://Assets/Cartoon Bomb.png")
+		var scale_factor := (GameData.CELL_SIZE - 8.0) / max(tex.get_width(), tex.get_height())
+		var tex_size := Vector2(tex.get_width(), tex.get_height() * scale_factor)
+		draw_texture_rect(tex, Rect2(center - tex_size / 2.0, tex_size), false)
 	
 	
+func _draw_mirror(center: Vector2, data: Dictionary):
+	var offset := GameData.CELL_SIZE / 2.0 - 6.0
+	var mdir : int = data["mirror_dir"]
+	var is_backslash: bool = (mdir == GameData.MirrorDir.NE or mdir == GameData.MirrorDir.SW)
+	var from: Vector2
+	var to: Vector2
 	
+	if is_backslash:
+		from = center + Vector2(-offset, -offset)
+		to = center + Vector2(offset, offset)
+	else:
+		from = center + Vector2(offset, -offset)
+		to = center + Vector2(-offset, offset)
 	
+	# reflective side
+	draw_line(from, to, GameData.COLOR_MIRROR, 4.0)
 	
+	# single sides
+	if not data["double_sides"]:
+		var back_offset
 	
 	
 	
