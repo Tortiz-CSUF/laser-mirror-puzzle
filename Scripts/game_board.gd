@@ -162,7 +162,12 @@ func _draw_piece(cell: Vector2i):
 		var r := Rect2(center - Vector2(quarter, quarter), Vector2(quarter * 2, quarter * 2))
 		draw_rect(r, GameData.COLOR_LASER_SOURCE)
 		var arrow_end := center
-		
+		match data["laser_dir"]:
+			GameData.Dir.RIGHT: arrow_end += Vector2(quarter, 0)
+			GameData.Dir.LEFT: arrow_end -= Vector2(quarter, 0)
+			GameData.Dir.DOWN: arrow_end += Vector2(0, quarter)
+			GameData.Dir.UP: arrow_end -= Vector2(0, quarter)
+		draw_line(center, quarter, Color.WHITE, 2.0)
 	
 	
 	
