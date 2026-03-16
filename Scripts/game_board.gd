@@ -49,7 +49,7 @@ func _place_test_pieces():
 	# Double sides mirror at (4,3)
 	grid[4][3]["type"] = GameData.PieceType.MIRROR_STATIC_DOUBLE
 	grid[4][3]["mirror_dir"] = GameData.MirrorDir.NE
-	grid[4][3]["double_sides"] = true
+	grid[4][3]["double_sided"] = true
 	
 	# Goal at (4,6)
 	grid[4][6]["type"] = GameData.PieceType.GOAL
@@ -121,7 +121,7 @@ func _is_mirror(type: int) -> bool:
 		GameData.PieceType.MIRROR_ROTATE_SINGLE,
 		GameData.PieceType.MIRROR_ROTATE_DOUBLE,
 		GameData.PieceType.MIRROR_SLIDE_H,
-		GameData.PieceType.MIRROR_SLLIDE_V,
+		GameData.PieceType.MIRROR_SLIDE_V,
 		
 	]
 
@@ -205,7 +205,7 @@ func _draw_mirror(center: Vector2, data: Dictionary):
 	draw_line(from, to, GameData.COLOR_MIRROR, 4.0)
 	
 	# single sides
-	if not data["double_sides"]:
+	if not data["double_sided"]:
 		var back_offset := 3.0
 		var normal: Vector2
 		if is_backslash:
@@ -288,6 +288,8 @@ func _cast_laser(start: Vector2i, dir: int, color_idx: int):
 				beam_points.append(_cell_center(next))
 				current = next
 				current_dir = reflect_result	
+				
+	_create_beam_line(beam_points)
 	
 	
 func _reflect(incoming_dir: int, cell_data: Dictionary) -> int:
