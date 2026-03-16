@@ -92,6 +92,16 @@ func _world_to_grid(world_pos: Vector2) -> Vector2i:
 func _is_valid_cell(cell: Vector2i) -> bool:
 	return cell.x >= 0 and cell.x < grid_width and cell.y >= 0 and cell.y < grid_height
 	
+
+## HELPERS
+func _next_cell(cell: Vector2i, dir: int) -> Vector2i:
+	match dir:
+		GameData.Dir.UP: return cell + Vector2i(0, -1)
+		GameData.Dir.DOWN: return cell + Vector2i(0, 1)
+		GameData.Dir.LEFT: return cell + Vector2i(-1, 0)
+		GameData.Dir.RIGHT: return cell + Vector2i(1, 0)
+		
+	return cell
 	
 func _draw():
 	# Draw border
