@@ -247,10 +247,47 @@ func _cast_laser(start: Vector2i, dir: int, color_idx: int):
 	
 	var current := start
 	var current_dir := dir
-	var 
+	var max_steps := (grid_width + grid_height) * 4
+	var steps:= 0
 	
-	
-	
+	while steps < max_steps:
+		steps += 1
+		var next := _next_cell(current, current_dir)
+		
+		if not _is_valid_cell(next):
+			beam_points.append(_edge_point(current, current_dir))
+			break
+			
+		var cell_data: Dictionary = grid[next.x][next.y]
+		var cell_type: int = cell_data["type"]
+		
+		if cell_type == GameData.PieceType.EMPTY or cell_type == GameData.PieceType.HAZARD:
+			beam_points.append(_cell_center(next))
+			current = next
+			
+		elif cell_type == GameData.PieceType.GOAL:
+			beam_points.append(_cell_center(next))
+			if cell_data["color_index"] == color_idx:
+				cell_data["hit"] = true
+			break
+			
+		elif cell_type == GameData.PieceType.BARRIER or cell_type == GameData.PieceType.LASER:
+			beam_points.append(_edge_point(current, current_dir))
+			break
+			
+		elif  cell_type == GameData.PieceType.BOMB:
+			beam_points.append(_cell_center(next))
+			cell_data["hit"] = true
+			break
+		elif _is_mirror(cell_type):
+			var reflect_result := _reflect(current_dir, cell_data)
+			if reflect_result == -1:
+				beam_points.append(_edge_point(current, current_dir))
+				break
+			else:
+				beam_points.append(_cell_center(next))
+				current = next
+				current_dir = reflect_result	
 	
 	
 func _reflect(incoming_dir: int, cell_data: Dictionary) -> int:
