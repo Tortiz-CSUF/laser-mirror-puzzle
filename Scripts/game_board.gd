@@ -9,6 +9,8 @@ var grid: Array = [] 			# Pieces data
 
 
 func _ready() -> void:
+	$TileBackground.z_index = -1
+	$LaserBeams.z_index = -1
 	_init_grid()
 	_place_test_pieces()
 	_draw_tiles()
@@ -179,6 +181,10 @@ func _draw_piece(cell: Vector2i):
 	elif type == GameData.PieceType.BARRIER:
 		var r := Rect2(center - Vector2(half - 4, half - 4), Vector2((half - 4) * 2, (half - 4) * 2 ))
 		draw_rect(r, GameData.COLOR_BARRIER)
+		
+	elif type == GameData.PieceType.HAZARD:
+		var r:= Rect2(center - Vector2(half - 4, half - 4), Vector2((half - 4) * 2, (half - 4) * 2))
+		draw_rect(r, GameData.COLOR_HAZARD)
 		
 	elif type == GameData.PieceType.BOMB:
 		var tex := preload("res://Assets/Cartoon Bomb.png")
