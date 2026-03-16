@@ -222,5 +222,29 @@ func _draw_mirror(center: Vector2, data: Dictionary):
 	
 	
 ## Laser System
+func _cast_all_laser():
+	
+	
+	
+func _cast_laser():
+	
+	
+	
+func _reflect():
+	
+	
+func _hits_reflective_face():
+	
+	
+func _create_beam_line(points: PackedVector2Array):
+	if points.size() < 2:
+		return
+	var line := Line2D.new()
+	line.points = points
+	line.width = 3.0
+	line.default_color = GameData.COLOR_LASER_BEAM
+	$LaserBeams.add_child(line)
+	
+	
 
 	
