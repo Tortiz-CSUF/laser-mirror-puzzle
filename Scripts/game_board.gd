@@ -100,9 +100,32 @@ func _next_cell(cell: Vector2i, dir: int) -> Vector2i:
 		GameData.Dir.DOWN: return cell + Vector2i(0, 1)
 		GameData.Dir.LEFT: return cell + Vector2i(-1, 0)
 		GameData.Dir.RIGHT: return cell + Vector2i(1, 0)
-		
 	return cell
 	
+
+func _edge_point(cell: Vector2i, dir: int) -> Vector2:
+	var center := _cell_center(cell)
+	var half := GameData.CELL_SIZE / 2.0
+	match dir:
+		GameData.Dir.UP: return center + Vector2(0, -half)
+		GameData.Dir.DOWN: return center + Vector2(0, half)
+		GameData.Dir.LEFT: return center + Vector2(-half, 0)
+		GameData.Dir.RIGHT: return center + Vector2(half, 0)
+	return center
+
+
+func is_mirror(type: int) -> bool:
+	return type in [
+		GameData.PieceType.MIRROR_STATIC_SINGLE,
+		GameData.PieceType.MIRROR_STATIC_DOUBLE,
+		GameData.PieceType.MIRROR_ROTATE_SINGLE,
+		GameData.PieceType.MIRROR_ROTATE_DOUBLE,
+		GameData.PieceType.MIRROR_SLIDE_H,
+		GameData.PieceType.MIRROR_SLLIDE_V,
+		
+	]
+
+
 func _draw():
 	# Draw border
 	var rect := Rect2(GameData.GRID_OFFSET, Vector2(grid_width * GameData.CELL_SIZE, grid_height * GameData.CELL_SIZE))
@@ -118,5 +141,34 @@ func _draw():
 		var from := GameData.GRID_OFFSET + Vector2(0, y * GameData.CELL_SIZE)
 		var to := from + Vector2(grid_width * GameData.CELL_SIZE, 0)
 		draw_line(from, to, GameData.COLOR_GRID_LINE, 1.0)
+		
+	# draws all pieces
+	for x in range(grid_width):
+		for y in range(grid_height):
+			_draw_piece(Vector2i(x, y))
+	
+
+func _draw_piece(cell: Vector2i):
+	var data : Dictionary = grid[cell.x][cell.y]
+	var type: int = data["type"]
+	var center := _cell_center(cell)
+	var half := GameData.CELL_SIZE / 2.0
+	var quarter := GameData.CELL_SIZE / 4.0
+	
+	if type == GameData.PieceType.EMPTY:
+		return
+		
+	elif type == GameData.PieceType.LASER:
+		var r := Rect2(center - Vector2(quarter, quarter), Vector2(quarter * 2, quarter * 2))
+		draw_rect(r, GameData.COLOR_LASER_SOURCE)
+		var arrow_end := center
+		
+	
+	
+	
+	
+	
+	
+	
 	
 	
