@@ -223,10 +223,29 @@ func _draw_mirror(center: Vector2, data: Dictionary):
 	
 ## Laser System
 func _cast_all_laser():
+	var beam_parent := $LaserBeams
+	for child in beam_parent.get_children():
+		child.queue_free()
+		
+	# reset all hits
+	for x in range(grid_width):
+		for y in range(grid_height):
+			grid_height[x][y]["hit"] = false
+			
+	# cast from every laser source
+	for x in range(grid_width):
+		for y in range(grid_height):
+			if grid [x][y]["type"] == GameData.PieceType.LASER:
+				_cast_laser(Vector2i(x, y), grid[x][y]["laser_dir"], grid[x][y]["color_index"])
+				
+	queue_redraw()
 	
 	
+func _cast_laser(start: Vector2i, dir: int, color_idx: int):
+	var beam_points: PackedVector2Array = []
+	beam_points.append(_cell_center(start))
 	
-func _cast_laser():
+	
 	
 	
 	
