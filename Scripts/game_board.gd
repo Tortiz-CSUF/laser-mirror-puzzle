@@ -8,7 +8,7 @@ var grid: Array = [] 			# Pieces data
 
 ## Player Input
 func _input(event: InputEvent):
-	if event is InputEventMouse and event.is_pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var cell := _world_to_grid(event.position)
 		if not _is_valid_cell(cell):
 			return
