@@ -6,7 +6,31 @@ var grid_height: int = 8
 var grid: Array = [] 			# Pieces data
 
 
+## Player Input
+func _input(event: InputEvent):
+	if event is InputEventMouse and event.is_pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var cell := _world_to_grid(event.position)
+		if not _is_valid_cell(cell):
+			return
+		var data: Dictionary = grid[cell.x][cell.y]
+		var type: int = data["type"]
+		
+		# Rotate mirrors that are rotateable
+		if type in [GameData.PieceType.MIRROR_ROTATE_SINGLE, GameData.PieceType.MIRROR_ROTATE_DOUBLE]:
+			_rotate_mirror(cell)
 
+func _rotate_mirror(cell: Vector2i):
+	var data: Dictionary = grid[cell.x][cell.y]
+	
+	#cylce directions NE, NW, SW, SE, NE
+	match data["mirror_dir"]:
+		GameData.MirrorDir.NE: data["mirror_dir"] = GameData.MirrorDir.NW
+		GameData.MirrorDir.NW: data["mirror_dir"] = GameData.MirrorDir.SW
+		GameData.MirrorDir.SW: data["mirror_dir"] = GameData.MirrorDir.SE
+		GameData.MirrorDir.SE: data["mirror_dir"] = GameData.MirrorDir.NE
+	
+	_cast_all_lasers()
+	
 
 func _ready() -> void:
 	$TileBackground.z_index = -1
@@ -48,8 +72,8 @@ func _place_test_pieces():
 	grid[0][3]["laser_dir"] = GameData.Dir.RIGHT
 	grid[0][3]["color_index"] = 0
 	
-	# Double sides mirror at (4,3)
-	grid[4][3]["type"] = GameData.PieceType.MIRROR_STATIC_DOUBLE
+	# Rotatable mirror at (4,3)
+	grid[4][3]["type"] = GameData.PieceType.MIRROR_ROTATE_DOUBLE
 	grid[4][3]["mirror_dir"] = GameData.MirrorDir.NE
 	grid[4][3]["double_sided"] = true
 	
