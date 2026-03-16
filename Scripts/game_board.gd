@@ -182,8 +182,8 @@ func _draw_piece(cell: Vector2i):
 		
 	elif type == GameData.PieceType.BOMB:
 		var tex := preload("res://Assets/Cartoon Bomb.png")
-		var scale_factor := (GameData.CELL_SIZE - 8.0) / max(tex.get_width(), tex.get_height())
-		var tex_size := Vector2(tex.get_width(), tex.get_height() * scale_factor)
+		var scale_factor: float = (GameData.CELL_SIZE - 8.0) / float(max(tex.get_width(), tex.get_height()))
+		var tex_size := Vector2(tex.get_width(), tex.get_height()) * scale_factor
 		draw_texture_rect(tex, Rect2(center - tex_size / 2.0, tex_size), false)
 	
 	
@@ -221,5 +221,6 @@ func _draw_mirror(center: Vector2, data: Dictionary):
 		draw_line(from + normal, to + normal, GameData.COLOR_BARRIER, 2.0)
 	
 	
-	
+## Laser System
+
 	
