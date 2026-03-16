@@ -11,12 +11,19 @@ config_version=5
 [application]
 
 config/name="Laser Mirror Puzzle"
+run/main_scene="uid://ducaojv6sdgdf"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameData="*uid://bkoww18muhqn6"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 
 [physics]
 

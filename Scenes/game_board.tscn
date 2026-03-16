@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ducaojv6sdgdf"]
 
-[ext_resource type="Script" uid="uid://cbyt6dpuonjvo" path="res://Scripts/game_board.gd" id="1_xrvgy"]
+[ext_resource type="Script" uid="uid://cbyt6dpuonjvo" path="res://Scripts/game_board.gd" id="1_pxj3o"]
 
 [node name="GameBoard" type="Node2D" unique_id=2076274709]
-script = ExtResource("1_xrvgy")
+script = ExtResource("1_pxj3o")
 
 [node name="TileBackground" type="Node2D" parent="." unique_id=2102863410]
 
