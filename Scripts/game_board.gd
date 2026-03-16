@@ -245,18 +245,22 @@ func _cast_laser(start: Vector2i, dir: int, color_idx: int):
 	var beam_points: PackedVector2Array = []
 	beam_points.append(_cell_center(start))
 	
+	var current := start
+	var current_dir := dir
+	var 
 	
 	
 	
 	
-func _reflect() -> int:
+	
+func _reflect(incoming_dir: int, cell_data: Dictionary) -> int:
 	var mdir: int = cell_data["mirror_dir"]
 	var double: bool = cell_data["double_sided"]
 	var is_backslash: bool = (mdir == GameData.MirrorDir.NE or mdir == GameData.MirrorDir.SW)
 	
 	if not double:
 		if not _hits_reflective_face(incoming_dir, mdir):
-			reutrn -1
+			return -1
 	
 	if is_backslash:
 		match incoming_dir:
