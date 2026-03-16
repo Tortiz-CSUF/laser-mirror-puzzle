@@ -206,7 +206,19 @@ func _draw_mirror(center: Vector2, data: Dictionary):
 	
 	# single sides
 	if not data["double_sides"]:
-		var back_offset
+		var back_offset := 3.0
+		var normal: Vector2
+		if is_backslash:
+			if mdir == GameData.MirrorDir.NE:
+				normal = Vector2(1, -1).normalized() * back_offset
+			else:
+				normal = Vector2(-1, 1).normalized() * back_offset
+		else:
+			if mdir == GameData.MirrorDir.NW:
+				normal = Vector2(-1, -1).normalized() * back_offset
+			else:
+				normal = Vector2(1, 1).normalized() * back_offset
+		draw_line(from + normal, to + normal, GameData.COLOR_BARRIER, 2.0)
 	
 	
 	
