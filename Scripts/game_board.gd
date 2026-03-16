@@ -235,7 +235,23 @@ func _reflect() -> int:
 	var double: bool = cell_data["double_sided"]
 	var is_backslash: bool = (mdir == GameData.MirrorDir.NE or mdir == GameData.MirrorDir.SW)
 	
+	if not double:
+		if not _hits_reflective_face(incoming_dir, mdir):
+			reutrn -1
 	
+	if is_backslash:
+		match incoming_dir:
+			GameData.Dir.RIGHT: return GameData.Dir.DOWN
+			GameData.Dir.DOWN: return GameData.Dir.RIGHT
+			GameData.Dir.LEFT: return GameData.Dir.UP
+			GameData.Dir.UP: return GameData.Dir.LEFT
+	else:
+		match incoming_dir:
+			GameData.Dir.RIGHT: return GameData.Dir.UP
+			GameData.Dir.UP: return GameData.Dir.RIGHT
+			GameData.Dir.LEFT: return GameData.Dir.DOWN
+			GameData.Dir.DOWN: return GameData.Dir.LEFT
+	return -1
 	
 	
 func _hits_reflective_face(incoming_dir: int, mdir: int) -> bool:
