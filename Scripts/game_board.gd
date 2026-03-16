@@ -230,11 +230,26 @@ func _cast_laser():
 	
 	
 	
-func _reflect():
+func _reflect() -> int:
+	var mdir: int = cell_data["mirror_dir"]
+	var double: bool = cell_data["double_sided"]
+	var is_backslash: bool = (mdir == GameData.MirrorDir.NE or mdir == GameData.MirrorDir.SW)
 	
 	
-func _hits_reflective_face():
 	
+	
+func _hits_reflective_face(incoming_dir: int, mdir: int) -> bool:
+	match mdir:
+		GameData.MirrorDir.NE:
+			return incoming_dir == GameData.Dir.DOWN or incoming_dir == GameData.Dir.LEFT
+		GameData.MirrorDir.NW:
+			return incoming_dir == GameData.Dir.DOWN or incoming_dir == GameData.Dir.RIGHT
+		GameData.MirrorDir.SE:
+			return incoming_dir == GameData.Dir.UP or incoming_dir == GameData.Dir.LEFT
+		GameData.MirrorDir.SW:
+			return incoming_dir == GameData.Dir.UP or incoming_dir == GameData.Dir.RIGHT
+	return false
+			
 	
 func _create_beam_line(points: PackedVector2Array):
 	if points.size() < 2:
@@ -244,7 +259,4 @@ func _create_beam_line(points: PackedVector2Array):
 	line.width = 3.0
 	line.default_color = GameData.COLOR_LASER_BEAM
 	$LaserBeams.add_child(line)
-	
-	
-
-	
+		
