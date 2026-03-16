@@ -39,6 +39,23 @@ func _init_grid():
 			col.append(_empty_cell())
 		grid.append(col)
 
+
+func _place_test_pieces():
+	# Laser at (0,3) shooting right
+	grid[0][3]["type"] = GameData.PieceType.LASER
+	grid[0][3]["laser_dir"] = GameData.Dir.RIGHT
+	grid[0][3]["color_index"] = 0
+	
+	# Double sides mirror at (4,3)
+	grid[4][3]["type"] = GameData.PieceType.MIRROR_STATIC_DOUBLE
+	grid[4][3]["mirror_dir"] = GameData.MirrorDir.NE
+	grid[4][3]["double_sides"] = true
+	
+	# Goal at (4,6)
+	grid[4][6]["type"] = GameData.PieceType.GOAL
+	grid[4][6]["color_index"] = 0
+
+
 func _draw_tiles():
 	var tile_bg := $TileBackground
 	# clear old tiles
