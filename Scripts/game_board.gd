@@ -10,7 +10,16 @@ var grid: Array = [] 			# Pieces data
 
 func _ready() -> void:
 	_init_grid()
+	_place_test_pieces()
 	_draw_tiles()
+	_cast_all_lasers()
+
+
+func _empty_cell() -> Dictionary:
+	return{
+		"type": GameData.PieceType.EMPTY,
+		"mirror_dir": GameData.MirrorDIr
+	}
 
 
 func _init_grid():

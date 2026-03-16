@@ -22,7 +22,7 @@ enum PieceType {
 }
 
 ## Mirror Orientation: Direction of reflection
-enum MirrorDIr {
+enum MirrorDir {
 	NE,
 	NW,
 	SE,
