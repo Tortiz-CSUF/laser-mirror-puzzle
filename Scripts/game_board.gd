@@ -75,16 +75,17 @@ func _rotate_mirror(cell: Vector2i):
 func _ready() -> void:
 	$TileBackground.z_index = -1
 	$LaserBeams.z_index = -1
-	_init_grid()
-	_place_test_pieces()
-	_draw_tiles()
-	_cast_all_lasers()
+	
+	#_init_grid()
+	#_place_test_pieces()
+	#_draw_tiles()
+	#_cast_all_lasers()
 	
 	$UI/UndoButton.pressed.connect(undo_action)
 	$UI/ResetButton.pressed.connect(reset_level)
 	$UI/FailPanel/RetryButton.pressed.connect(_on_retry)
 	$UI/WinPanel/MenuButton.pressed.connect(_on_menu)
-	_build_inventory_ui()
+	load_level(LevelData.current_level)
 
 func _empty_cell() -> Dictionary:
 	return{
@@ -678,6 +679,18 @@ func load_level(level_num: int):
 	for inv in data["inventory"]:
 		var piece := _empty_cell()
 		piece["type"] = GameData.PieceType[inv["type"]]
+		if inv.has("mirror_dir"):
+			piece["mirror_dir"] = GameData.PieceType[inv["type"]]
+		if inv.has("double_sided"):
+			piece["double_sided"] = inv["double_sided"]
+			inventory.append(piece)
+			
+	_draw_tiles()
+	_cast_all_lasers()
+	_build_inventory_ui()
+	_update_ui()
+	$UI/WinPanel.visible = false
+	$UI/FailPanel.visible = false
 	
 	
 	
