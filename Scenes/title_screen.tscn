@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://bn3prbv6yoqly"]
 
+[ext_resource type="Script" uid="uid://po6civplch7g" path="res://Scripts/title_screen.gd" id="1_klylv"]
+
 [node name="TitleScreen" type="Control" unique_id=1217633668]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +9,32 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_klylv")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1073073627]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 120.0
+offset_right = 840.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 42
+text = "Laser Mirror Puzle"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="." unique_id=609761204]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 300.0
+offset_right = 790.0
+offset_bottom = 350.0
+theme_override_font_sizes/font_size = 26
+text = "Play"
+
+[node name="InstructionsButton" type="Button" parent="." unique_id=1009062875]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 380.0
+offset_right = 790.0
+offset_bottom = 430.0
+theme_override_font_sizes/font_size = 26
+text = "Instructions"
