@@ -100,6 +100,14 @@ func _place_test_pieces():
 	grid[4][3]["mirror_dir"] = GameData.MirrorDir.NE
 	grid[4][3]["double_sided"] = true
 	
+	# Horizontal Slider at (4,6) can slide col 2-6
+	grid[4][6]["type"] = GameData.PieceType.MIRROR_SLIDE_H
+	grid[4][6]["mirror_dir"] = GameData.MirrorDir.NW
+	grid[4][6]["double_sided"] = true
+	grid[4][6]["slide_axis"] = "h"
+	grid[4][6]["slide_min"] = 2
+	grid[4][6]["slide_max"] = 6
+	
 	# Goal at (4,6)
 	grid[4][6]["type"] = GameData.PieceType.GOAL
 	grid[4][6]["color_index"] = 0
@@ -429,15 +437,50 @@ func _handle_slide(mouse_pos: Vector2i):
 	_record_action({"action": "slide", "from": old_cell, "to": new_cell})
 	_cast_all_lasers()		
 		
-		
 
 ## Tracking
 func _record_action(action_data: Dictionary):
 	action_count += 1
 	action_history.append(action_data)
 	_update_ui()
+
+
+func undo_action():
+	if action_history.is_empty():
+		return
+	var last: Dictionary = action_history.pop_back()
+	
+	if last["action"] == "rotate":
+		var cell: Vector2i = last["cell"]
+		grid[cell.x][cell.y]["mirror_dir"] = last["old_dir"]
+		
+	elif last["action"] == "slide":
+		var from: Vector2i = last["from"]
+		var to: Vector2i = last["to"]
+		grid[from.x][from.y] = grid[to.x][to.y].duplicate()
+		grid[to.x][to.y] = _empty_cell()
+		if dragging_cell == to:
+			dragging_cell = from
+			
+	elif last["action"] == "place":
+		var cell: Vector2i = last["cell"]
+		grid[cell.x][cell.y] = _empty_cell()
+		
+	action_count -= 1
+	_cast_all_lasers()
 	
 	
+func reset_level():
+	action_count = 0
+	action_history.clear()
+	_init_grid()
+	_place_test_pieces()
+	_draw_tiles()
+	_cast_all_lasers()
+	
+	
+func _update_ui():
+	pass 			### for later UI build 
 	
 	
 	
