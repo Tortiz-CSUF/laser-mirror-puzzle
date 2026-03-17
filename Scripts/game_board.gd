@@ -108,9 +108,9 @@ func _place_test_pieces():
 	grid[4][6]["slide_min"] = 2
 	grid[4][6]["slide_max"] = 6
 	
-	# Goal at (4,6)
-	grid[4][6]["type"] = GameData.PieceType.GOAL
-	grid[4][6]["color_index"] = 0
+	# Goal at (2,1)
+	grid[2][1]["type"] = GameData.PieceType.GOAL
+	grid[2][1]["color_index"] = 0
 
 
 func _draw_tiles():
