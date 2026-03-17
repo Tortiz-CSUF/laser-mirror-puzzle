@@ -112,7 +112,19 @@ var levels: Array = [
 	},
 	
 	# Lvl 7: Invetory 
-	
+	{
+		"width": 7,
+		"height": 7,
+		"pieces": [
+			{"x": 0, "y": 3, "type": "LASER", "laser_dir": "RIGHT", "color_index": 0},
+			{"x": 6, "y":05, "type": "GOAL", "color_index": 0},
+			{"x": 4, "y": 3, "type": "BARRIER"},
+		],
+		"inventory": [
+			{"type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NE", "double_sided": true},
+			{"type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NW", "double_sided": true},
+		]
+	},
 	
 	
 ]
