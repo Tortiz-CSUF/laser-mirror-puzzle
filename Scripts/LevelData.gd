@@ -126,5 +126,20 @@ var levels: Array = [
 		]
 	},
 	
+	# Lvl 8: Bombs
+	{
+		"width": 8,
+		"height": 7,
+		"pieces": [
+			{"x": 0, "y": 3, "type": "LASER", "laser_dir": "RIGHT", "color_index": 0},
+			{"x": 3, "y": 3, "type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NE", "double_sided": true},	
+			{"x": 3, "y": 0, "type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NW", "double_sided": true},
+			{"x": 7, "y": 3, "type": "BOMB"},
+			{"x": 7, "y": 0, "type": "GOAL", "color_index": 0},
+				
+		],
+		"inventory": []
+	},
+	
 	
 ]
