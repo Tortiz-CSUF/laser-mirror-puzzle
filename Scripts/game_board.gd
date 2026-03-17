@@ -86,6 +86,7 @@ func _ready() -> void:
 	$UI/FailPanel/RetryButton.pressed.connect(_on_retry)
 	$UI/WinPanel/MenuButton.pressed.connect(_on_menu)
 	load_level(LevelData.current_level)
+	
 
 func _empty_cell() -> Dictionary:
 	return{
@@ -371,6 +372,7 @@ func _check_win_loss():
 
 func _trigger_win():
 	level_active = false
+	LevelData.complete_level(LevelData.current_level, action_count)
 	$UI/WinPanel.visible = true
 	$UI/WinPanel/WinLabel.text = "Level Complete!\nActions: " + str(action_count)
 
@@ -554,14 +556,7 @@ func undo_action():
 	
 	
 func reset_level():
-	action_count = 0
-	action_history.clear()
-	_init_grid()
-	_place_test_pieces()
-	_draw_tiles()
-	_cast_all_lasers()
-	_update_ui()
-	_build_inventory_ui()
+	load_level(LevelData.current_level)
 	
 	
 func _update_ui():
@@ -658,7 +653,7 @@ func load_level(level_num: int):
 	
 	for p in data["pieces"]:
 		var cell := _empty_cell()
-		cell["type"] = GameData.MirrorDir[p["mirror_dir"]]
+		cell["type"] = GameData.PieceType[p["type"]]
 		if p.has("mirror_dir"):
 			cell["mirror_dir"] = GameData.MirrorDir[p["mirror_dir"]]
 		if p.has("double_sided"):
@@ -684,13 +679,14 @@ func load_level(level_num: int):
 		if inv.has("double_sided"):
 			piece["double_sided"] = inv["double_sided"]
 			inventory.append(piece)
-			
+	
+	$UI/WinPanel.visible = false
+	$UI/FailPanel.visible = false	
 	_draw_tiles()
 	_cast_all_lasers()
 	_build_inventory_ui()
 	_update_ui()
-	$UI/WinPanel.visible = false
-	$UI/FailPanel.visible = false
+	
 	
 	
 	
