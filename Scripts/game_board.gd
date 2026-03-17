@@ -551,4 +551,33 @@ func _on_menu():
 	pass 			#will use when level menu built
 	
 	
+## Inventory System
+func _build_inventory_ui():
+	var bar := $UI/InventroyBar
+	for child in bar.get_children():
+		child.queue_free()
+		
+	$UI/InventroyLabel.visible = inventory.size() > 0
+	
+	for i in range(inventory.size()):
+		var btn := Button.new()
+		btn.custom_minimum_size = Vector2(60, 60)
+		btn.text = _piece_short_name(inventory[i])
+		var idx := i
+		btn.pressed.connect(func(): _select_inventory(idx))
+		bar.add_child(btn)
+		
+	_highlight_selected()	
+	
+	
+func _piece_short_name(data: Dictionary) -> String:	
+	
+	
+	
+	
+func _select_inventory(index: int):	
+	
+	
+	
+func _highlight_selected():
 	
