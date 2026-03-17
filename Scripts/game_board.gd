@@ -84,6 +84,7 @@ func _ready() -> void:
 	$UI/ResetButton.pressed.connect(reset_level)
 	$UI/FailPanel/RetryButton.pressed.connect(_on_retry)
 	$UI/WinPanel/MenuButton.pressed.connect(_on_menu)
+	_build_inventory_ui()
 
 func _empty_cell() -> Dictionary:
 	return{
@@ -129,12 +130,25 @@ func _place_test_pieces():
 	grid[4][6]["slide_min"] = 2
 	grid[4][6]["slide_max"] = 6
 	
-	# Goal at (2,1)
-	grid[2][1]["type"] = GameData.PieceType.GOAL
-	grid[2][1]["color_index"] = 0
+	# Goal at (7,3)
+	grid[7][3]["type"] = GameData.PieceType.GOAL
+	grid[7][3]["color_index"] = 0
 	
-	# Bomb at (4,7)
-	grid[4][7]["type"] = GameData.PieceType.BOMB
+	# Bomb at (5,3)
+	grid[5][3]["type"] = GameData.PieceType.BOMB
+	
+	# Placeable mirrors
+	var mirror_a := _empty_cell()
+	mirror_a["type"] = GameData.PieceType.MIRROR_ROTATE_DOUBLE
+	mirror_a["mirror_dir"] = GameData.MirrorDir.NE
+	mirror_a["double_sided"] = true
+	
+	var mirror_b := _empty_cell()
+	mirror_b["type"] = GameData.PieceType.MIRROR_ROTATE_DOUBLE
+	mirror_b["mirror_dir"] = GameData.MirrorDir.NW
+	mirror_b["double_sided"] = true
+	
+	inventory = [mirror_a, mirror_b]
 
 
 func _draw_tiles():
