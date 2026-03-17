@@ -470,6 +470,7 @@ func undo_action():
 		
 	action_count -= 1
 	_cast_all_lasers()
+	_update_ui()
 	
 	
 func reset_level():
@@ -479,6 +480,7 @@ func reset_level():
 	_place_test_pieces()
 	_draw_tiles()
 	_cast_all_lasers()
+	_update_ui()
 	
 	
 func _update_ui():
