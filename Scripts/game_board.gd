@@ -571,13 +571,37 @@ func _build_inventory_ui():
 	
 	
 func _piece_short_name(data: Dictionary) -> String:	
-	
-	
+	match data["type"]:
+		GameData.PieceType.MIRROR_STATIC_SINGLE: return "S1"
+		GameData.PieceType.MIRROR_STATIC_DOUBLE: return "S2"
+		GameData.PieceType.MIRROR_ROTATE_SINGLE: return "R1"
+		GameData.PieceType.MIRROR_ROTATE_DOUBLE: return "R2"
+		GameData.PieceType.MIRROR_SLIDE_H: return "SH"
+		GameData.PieceType.MIRROR_SLIDE_V: return "SV"
+	return "?"	
 	
 	
 func _select_inventory(index: int):	
-	
+	if selected_inventory_index == index:
+		selected_inventory_index = -1
+	else:
+		selected_inventory_index = index
+	_highlight_selected()
 	
 	
 func _highlight_selected():
-	
+	var bar := $UI/InventroyBar
+	for i in range(bar.get_child_count()):
+		var btn: Button = bar.get_child(i)
+		if i == selected_inventory_index:
+			btn.modulate = Color(0.5, 1.0, 0.5)
+		else:
+			btn.modulate = Color.WHITE
+		
+		
+		
+		
+		
+		
+		
+		
