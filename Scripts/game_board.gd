@@ -13,16 +13,34 @@ var drag_axis: String = ""
 
 ## Player Input
 func _input(event: InputEvent):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var cell := _world_to_grid(event.position)
-		if not _is_valid_cell(cell):
-			return
-		var data: Dictionary = grid[cell.x][cell.y]
-		var type: int = data["type"]
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			var cell := _world_to_grid(event.position)
+			if not _is_valid_cell(cell):
+				return
+			var data: Dictionary = grid[cell.x][cell.y]
+			var type: int = data["type"]
 		
-		# Rotate mirrors that are rotateable
-		if type in [GameData.PieceType.MIRROR_ROTATE_SINGLE, GameData.PieceType.MIRROR_ROTATE_DOUBLE]:
-			_rotate_mirror(cell)
+			# Rotate mirrors that are rotateable
+			if type in [GameData.PieceType.MIRROR_ROTATE_SINGLE, GameData.PieceType.MIRROR_ROTATE_DOUBLE]:
+				var old_dir: int = data["mirror_dir"]
+				_rotate_mirror(cell)
+				_record_action({"action": "rotate", "cell": cell, "old_dir": old_dir, "new_dir": data["mirror_dir"]})
+				
+			# Start sliding
+			elif type in [GameData.PieceType.MIRROR_SLIDE_H, GameData.PieceType.MIRROR_SLIDE_V]:
+				dragging_cell = cell
+				drag_axis = data["slide_axis"]
+				
+		else:
+			# Mouse Release to finish slide
+			if dragging_cell != Vector2i(-1, -1):
+				dragging_cell = Vector2i(-1, -1)
+				drag_axis = ""
+				
+	elif event is InputEventMouseMotion and dragging_cell != Vector2i(-1, -1):
+		_handle_slide(event.position)
+					
 
 func _rotate_mirror(cell: Vector2i):
 	var data: Dictionary = grid[cell.x][cell.y]
@@ -373,3 +391,56 @@ func _create_beam_line(points: PackedVector2Array):
 	line.default_color = GameData.COLOR_LASER_BEAM
 	$LaserBeams.add_child(line)
 		
+		
+
+## Slide Handling 
+func _handle_slide(mouse_pos: Vector2i):
+	var target := _world_to_grid(mouse_pos)
+	if target == dragging_cell:
+		return
+		
+	var data: Dictionary = grid[dragging_cell.x][dragging_cell.y]
+	var new_cell := dragging_cell
+	
+	if drag_axis == "h":
+		new_cell = Vector2i(target.x, dragging_cell.y)
+	elif drag_axis == "v":
+		new_cell = Vector2i(dragging_cell.x, target.y)
+		
+	# Clamp to slide range
+	if drag_axis == "h":
+		new_cell.x = clampi(new_cell.x, data["slide_min"], data["slide_max"])
+	elif  drag_axis == "v":
+		new_cell.y = clampi(new_cell.y, data["slide_min"], data["slide_max"])
+		
+	if new_cell == dragging_cell:
+		return
+	if not _is_valid_cell(new_cell):
+		return
+	if grid[new_cell.x][new_cell.y]["type"] != GameData.PieceType.EMPTY:
+		return
+		
+	# Move piece
+	var old_cell := dragging_cell
+	grid[new_cell.x][new_cell.y] = data.duplicate()
+	grid[old_cell.x][old_cell.y] = _empty_cell()
+	dragging_cell = new_cell
+	
+	_record_action({"action": "slide", "from": old_cell, "to": new_cell})
+	_cast_all_lasers()		
+		
+		
+
+## Tracking
+func _record_action(action_data: Dictionary):
+	action_count += 1
+	action_history.append(action_data)
+	_update_ui()
+	
+	
+	
+	
+	
+	
+	
+	
