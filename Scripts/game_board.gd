@@ -13,6 +13,10 @@ var drag_axis: String = ""
 # UI
 var level_active: bool = true
 
+# Innventory System
+var inventory: Array = []
+var selected_inventory_index: int = -1
+
 
 ## Player Input
 func _input(event: InputEvent):
