@@ -42,6 +42,11 @@ func _input(event: InputEvent):
 				dragging_cell = cell
 				drag_axis = data["slide_axis"]
 				
+				# place fro inventory to tiles	
+			elif type == GameData.PieceType.EMPTY and selected_inventory_index >= 0:
+				if not _is_hazard_cell(cell):
+					_place_from_inventory(cell)
+				
 		else:
 			# Mouse Release to finish slide
 			if dragging_cell != Vector2i(-1, -1):
@@ -50,6 +55,8 @@ func _input(event: InputEvent):
 				
 	elif event is InputEventMouseMotion and dragging_cell != Vector2i(-1, -1):
 		_handle_slide(event.position)
+	
+
 					
 
 func _rotate_mirror(cell: Vector2i):
@@ -599,8 +606,20 @@ func _highlight_selected():
 			btn.modulate = Color.WHITE
 		
 		
-		
-		
+func _is_hazard_cell(cell: Vector2i) -> bool:
+	return grid[cell.x][cell.y]["type"] == GameData.PieceType.HAZARD
+	
+	
+func _place_from_inventory(cell: Vector2i):
+	var piece_data: Dictionary = inventory[selected_inventory_index].duplicate()
+	grid[cell.x][cell.y] = piece_data
+	
+	_record_action({"action": "place", "cell": cell, "inv_index": selected_inventory_index, "piece_data": piece_data.duplicate()})
+	
+	inventory.remove_at(selected_inventory_index)
+	selected_inventory_index = -1
+	_build_inventory_ui()
+	_cast_all_lasers()
 		
 		
 		
