@@ -10,6 +10,9 @@ var action_history: Array = []
 var dragging_cell: Vector2i = Vector2i(-1, -1)
 var drag_axis: String = ""
 
+# UI
+var level_active: bool = true
+
 
 ## Player Input
 func _input(event: InputEvent):
@@ -302,8 +305,46 @@ func _cast_all_lasers():
 				_cast_laser(Vector2i(x, y), grid[x][y]["laser_dir"], grid[x][y]["color_index"])
 				
 	queue_redraw()
+	_check_win_loss()
 	
 	
+	
+func _check_win_loss():
+	if not level_active:
+		return
+		
+	# check for bomb hit
+	for x in range(grid_width):
+		for y in range(grid_height):
+			if grid[x][y]["type"] == GameData.PieceType.BOMB and grid[x][y]["hit"]:
+				_trigger_fail()		
+				return
+				
+	# check if all goals hit
+	var all_goals_hit := true
+	for x in range(grid_width):
+		for y in range(grid_height):
+			if grid[x][y]["type"] == GameData.PieceType.GOAL:
+				if not grid[x][y]["hit"]:
+					all_goals_hit = false
+					break
+		if not all_goals_hit:
+			break
+			
+	if all_goals_hit:
+		_trigger_win()			
+		
+
+func _trigger_win():
+	level_active = false
+	$UI/WinPanel.visible = true
+	$UI/WinPanel/WinLabel.text = "Level Complete!\nActions: " + str(action_count)
+
+func _trigger_fail():
+	level_active = false
+	$UI/FailPanel.visible = true
+
+
 func _cast_laser(start: Vector2i, dir: int, color_idx: int):
 	var beam_points: PackedVector2Array = []
 	beam_points.append(_cell_center(start))

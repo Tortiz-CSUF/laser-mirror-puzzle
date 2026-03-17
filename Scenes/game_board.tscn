@@ -63,6 +63,7 @@ theme_override_font_sizes/font_size = 22
 text = "Level Menu"
 
 [node name="FailPanel" type="Panel" parent="UI" unique_id=138961158]
+visible = false
 offset_left = 390.0
 offset_top = 210.0
 offset_right = 690.0
