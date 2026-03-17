@@ -526,7 +526,12 @@ func undo_action():
 			
 	elif last["action"] == "place":
 		var cell: Vector2i = last["cell"]
+		var inv_index: int = last["inv_index"]
+		var piece_data: Dictionary = last["piece_data"]
 		grid[cell.x][cell.y] = _empty_cell()
+		inventory.insert(inv_index, piece_data)
+		selected_inventory_index = -1
+		_build_inventory_ui()
 		
 	action_count -= 1
 	_cast_all_lasers()
@@ -541,6 +546,7 @@ func reset_level():
 	_draw_tiles()
 	_cast_all_lasers()
 	_update_ui()
+	_build_inventory_ui()
 	
 	
 func _update_ui():
