@@ -642,5 +642,46 @@ func _place_from_inventory(cell: Vector2i):
 	_cast_all_lasers()
 		
 		
+
+## Level loading
+func load_level(level_num: int):
+	var data: Dictionary = LevelData.get_level(level_num)
+	grid_width = data["width"]
+	grid_height = data["height"]
+	level_active = true
+	action_count = 0
+	action_history.clear()
+	selected_inventory_index = -1
+	
+	_init_grid()
+	
+	for p in data["pieces"]:
+		var cell := _empty_cell()
+		cell["type"] = GameData.MirrorDir[p["mirror_dir"]]
+		if p.has("mirror_dir"):
+			cell["mirror_dir"] = GameData.MirrorDir[p["mirror_dir"]]
+		if p.has("double_sided"):
+			cell["double_sided"] = p["double_sided"]
+		if p.has("laser_dir"):
+			cell["laser_dir"] = GameData.Dir[p["laser_dir"]]
+		if p.has("color_index"):
+			cell["color_index"] = p["color_index"]
+		if p.has("slide_axis"):
+			cell["slide_axis"] = p["slide_axis"]
+		if p.has("slide_min"):
+			cell["slide_min"] = p["slide_min"]
+		if p.has ("slide_max"):
+			cell["slide_max"] = p["slide_max"]
+		grid[p["x"]][p["y"]] = cell
 		
-		
+	inventory = []
+	for inv in data["inventory"]:
+		var piece := _empty_cell()
+		piece["type"] = GameData.PieceType[inv["type"]]
+	
+	
+	
+	
+	
+	
+	
