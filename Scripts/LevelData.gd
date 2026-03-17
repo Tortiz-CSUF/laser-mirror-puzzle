@@ -141,5 +141,44 @@ var levels: Array = [
 		"inventory": []
 	},
 	
+	# Lvl 9: Multiple lasers
+	{
+		"width": 8,
+		"height": 8,
+		"pieces": [
+			{"x": 0, "y": 1, "type": "LASER", "laser_dir": "RIGHT", "color_index": 0},
+			{"x": 0, "y": 6, "type": "LASER", "laser_dir": "RIGHT", "color_index": 1},
+			{"x": 4, "y": 1, "type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NE", "double_sided": true},	
+			{"x": 4, "y": 6, "type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NW", "double_sided": true},
+			{"x": 7, "y": 4, "type": "GOAL", "color_index": 0},
+			{"x": 4, "y": 4, "type": "GOAL", "color_index": 1},
+			{"x": 6, "y": 1, "type": "BOMB"},
+				
+		],
+		"inventory": []
+	},
+	
+	#10: All elements
+	{
+		"width": 8,
+		"height": 8,
+		"pieces": [
+			{"x": 0, "y": 0, "type": "LASER", "laser_dir": "DOWN", "color_index": 0},
+			{"x": 0, "y": 7, "type": "LASER", "laser_dir": "RIGHT", "color_index": 1},
+			{"x": 0, "y": 4, "type": "MIRROR_STATIC_SINGLE", "mirror_dir": "NW", "double_sided": false},	
+			{"x": 3, "y": 0, "type": "MIRROR_SLIDE_H", "mirror_dir": "NE", "double_sided": true, "slide_axis": "h", "slide_min": 1, "slide_max": 5},
+			{"x": 5, "y": 4, "type": "MIRROR_SLIDE_V", "mirror_dir": "NW", "double_sided": true, "slide_axis": "v", "slide_min": 3, "slide_max": 7},
+			{"x": 3, "y": 7, "type": "MIRROR_ROTATE_SINGLE", "mirror_dir": "NW", "double_sided": false},	
+			{"x": 3, "y": 4, "type": "HAZARD"},
+			{"x": 6, "y": 2, "type": "BOMB"},
+			{"x": 7, "y": 7, "type": "GOAL", "color_index": 1},
+			{"x": 7, "y": 0, "type": "GOAL", "color_index": 0},
+			
+				
+		],
+		"inventory": [
+			{"type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NE", "double_sided": true},
+		]
+	},
 	
 ]
