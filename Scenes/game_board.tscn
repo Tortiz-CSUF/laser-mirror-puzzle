@@ -34,3 +34,57 @@ offset_top = 160.0
 offset_right = 850.0
 offset_bottom = 200.0
 text = "Reset"
+
+[node name="WinPanel" type="Panel" parent="UI" unique_id=151833438]
+visible = false
+offset_left = 390.0
+offset_top = 210.0
+offset_right = 690.0
+offset_bottom = 410.0
+
+[node name="WinLabel" type="Label" parent="UI/WinPanel" unique_id=440023701]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 30
+text = "Level Complete!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton" type="Button" parent="UI/WinPanel" unique_id=1657729851]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 130.0
+offset_right = 225.0
+offset_bottom = 170.0
+theme_override_font_sizes/font_size = 22
+text = "Level Menu"
+
+[node name="FailPanel" type="Panel" parent="UI" unique_id=138961158]
+offset_left = 390.0
+offset_top = 210.0
+offset_right = 690.0
+offset_bottom = 410.0
+
+[node name="FailLabel" type="Label" parent="UI/FailPanel" unique_id=1700766072]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 107.0
+theme_override_font_sizes/font_size = 30
+text = "KA-BOOM!!!
+ Bomb hit!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryButton" type="Button" parent="UI/FailPanel" unique_id=146631929]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 130.0
+offset_right = 225.0
+offset_bottom = 170.0
+theme_override_font_sizes/font_size = 20
+text = "Retry"
