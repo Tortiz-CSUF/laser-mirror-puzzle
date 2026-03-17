@@ -62,7 +62,9 @@ func _ready() -> void:
 	_place_test_pieces()
 	_draw_tiles()
 	_cast_all_lasers()
-
+	
+	$UI/UndoButton.pressed.connect(undo_action)
+	$UI/ResetButton.pressed.connect(reset_level)
 
 func _empty_cell() -> Dictionary:
 	return{
@@ -480,7 +482,7 @@ func reset_level():
 	
 	
 func _update_ui():
-	pass 			### for later UI build 
+	$UI/ActionLabel.text = "Actions: " + str(action_count)
 	
 	
 	
