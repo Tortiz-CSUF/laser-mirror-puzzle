@@ -5,6 +5,11 @@ var grid_width: int = 8
 var grid_height: int = 8
 var grid: Array = [] 			# Pieces data
 
+var action_count: int = 0
+var action_history: Array = []
+var dragging_cell: Vector2i = Vector2i(-1, -1)
+var drag_axis: String = ""
+
 
 ## Player Input
 func _input(event: InputEvent):
