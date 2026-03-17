@@ -121,6 +121,9 @@ func _place_test_pieces():
 	# Goal at (2,1)
 	grid[2][1]["type"] = GameData.PieceType.GOAL
 	grid[2][1]["color_index"] = 0
+	
+	# Bomb at (4,7)
+	grid[4][7]["type"] = GameData.PieceType.BOMB
 
 
 func _draw_tiles():
