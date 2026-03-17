@@ -16,6 +16,9 @@ var level_active: bool = true
 
 ## Player Input
 func _input(event: InputEvent):
+	if not level_active:
+		return
+	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var cell := _world_to_grid(event.position)
@@ -68,6 +71,8 @@ func _ready() -> void:
 	
 	$UI/UndoButton.pressed.connect(undo_action)
 	$UI/ResetButton.pressed.connect(reset_level)
+	$UI/FailPanel/RetryButton.pressed.connect(_on_retry)
+	$UI/WinPanel/MenuButton.pressed.connect(_on_menu)
 
 func _empty_cell() -> Dictionary:
 	return{
@@ -528,7 +533,15 @@ func _update_ui():
 	$UI/ActionLabel.text = "Actions: " + str(action_count)
 	
 	
-	
+## Button handlers
+func _on_retry():
+	$UI/FailPanel.visible = false
+	level_active = true
+	reset_level()
+
+
+func _on_menu():
+	pass 			#will use when level menu built
 	
 	
 	
