@@ -7,3 +7,32 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="InstructionsLabel" type="Label" parent="." unique_id=328181929]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 40.0
+offset_right = 1140.0
+offset_bottom = 540.0
+theme_override_font_sizes/font_size = 20
+text = "How to Play:
+
+Guide the laser beam to the goal sensor using mirrors.
+
+Mirrors reflect the laser at 90-degree angles along the grid. Click rotatable mirrors to change their angle. Drag slidable mirrors along thier allowed range. Some levels give you mirror pieces to place on empty tiles from your inventory.
+
+Barriers block the laser. Hazards prevent placing mirrors, but the laser passes over them. Bombs explode if hit by the laser, causing you to fail. 
+
+Your actions are counted. Use undo to reverse your last move, or Reset to start the level over. Complete a level by directing all lasers to their matching goal sensors.
+
+Levels unlock in order. Complete each level to unlock the next."
+autowrap_mode = 2
+
+[node name="InstructionsButton" type="Button" parent="." unique_id=2091710684]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 580.0
+offset_right = 790.0
+offset_bottom = 630.0
+theme_override_font_sizes/font_size = 20
+text = "Back to Title"
