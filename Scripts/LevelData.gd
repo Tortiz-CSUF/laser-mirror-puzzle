@@ -11,7 +11,7 @@ func _ready() -> void:
 		if i == 1:
 			level_progress[i] = {"status": GameData.LevelStatus.INCOMPLETE, "moves": 0}
 		else:
-			levels[1]["status"] = GameData.LevelStatus.LOCKED	
+			level_progress[i] = {"status": GameData.LevelStatus.LOCKED, "moves": 0}
 
 
 func get_level_count() -> int:
@@ -35,14 +35,15 @@ func complete_level(level_num: int, moves: int):
 		level_progress[level_num]["moves"] = moves
 	# unlock next level
 	if level_num < get_level_count():
-		if level_progress[level_num + 1]["status"] == GameData.LevelStatus.LOCKED:
-			level_progress[level_num + 1]["status"] = GameData.LevelStatus.INCOMPLETE
-	
+		var next_progress := get_progress(level_num + 1)
+		if next_progress["status"] == GameData.LevelStatus.LOCKED:
+			next_progress["status"] = GameData.LevelStatus.INCOMPLETE
+				
 
 func get_level(level_num: int) -> Dictionary:
 	return levels[level_num - 1]
 	
-	
+
 	
 var levels: Array = [
 	# Lvl 1: 1 static double mirror
@@ -51,7 +52,7 @@ var levels: Array = [
 		"height": 6,
 		"pieces": [
 			{"x": 0, "y": 2, "type": "LASER", "laser_dir": "RIGHT", "color_index": 0},
-			{"x": 3, "y": 2, "type": "MIRROR_STATIC_DOUBLE", "mirror_dir": "NE", "double_sided": true},
+			{"x": 3, "y": 2, "type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NW", "double_sided": true},
 			{"x": 3, "y": 5, "type": "GOAL", "color_index": 0},		
 		],
 		"inventory": []
