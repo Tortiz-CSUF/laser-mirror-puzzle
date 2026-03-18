@@ -8,8 +8,10 @@ var level_progress: Dictionary = {}
 func _ready() -> void:
 	# init all levels as locked except first lvl
 	for i in range(1, get_level_count() + 1):
-		level_progress[i] = {"status": GameData.LevelStatus.LOCKED, "moves": 0}
-	levels[1]["status"] = GameData.LevelStatus.INCOMPLETE	
+		if i == 1:
+			level_progress[i] = {"status": GameData.LevelStatus.INCOMPLETE, "moves": 0}
+		else:
+			levels[1]["status"] = GameData.LevelStatus.LOCKED	
 
 
 func get_level_count() -> int:
