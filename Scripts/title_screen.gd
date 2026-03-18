@@ -8,7 +8,7 @@ func _ready() -> void:
 
 
 func _on_play():
-	get_tree().change_scene_to_file("res://Scenes/.tscn")
+	get_tree().change_scene_to_file("res://Scenes/level_menu.tscn")
 	
 
 func _on_instructions():
