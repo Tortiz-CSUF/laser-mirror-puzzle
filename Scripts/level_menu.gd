@@ -14,7 +14,7 @@ func _build_level_buttons():
 	for i in range(1, LevelData.get_level_count() + 1):
 		var btn := Button.new()
 		btn.custom_minimum_size = Vector2(140, 80)
-		var progress: Dictionary = LevelData.level_progress[i + 1]
+		var progress: Dictionary = LevelData.get_progress(i)
 		var status: int = progress["status"]
 		
 		if status == GameData.LevelStatus.LOCKED:

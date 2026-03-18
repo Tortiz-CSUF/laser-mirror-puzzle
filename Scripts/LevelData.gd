@@ -18,6 +18,16 @@ func get_level_count() -> int:
 	return levels.size()
 	
 
+func get_progress(level_num: int) -> Dictionary:
+	if not level_progress.has(level_num):
+		if level_num == 1:
+			level_progress[level_num] = {"status": GameData.LevelStatus.INCOMPLETE, "moves": 0}
+		else:
+			level_progress[level_num] = {"status": GameData.LevelStatus.LOCKED, "moves": 0}
+	
+	return level_progress[level_num]
+	
+
 func complete_level(level_num: int, moves: int):
 	level_progress[level_num]["status"] = GameData.LevelStatus.COMPLETE
 	var prev_moves: int = level_progress[level_num]["moves"]
