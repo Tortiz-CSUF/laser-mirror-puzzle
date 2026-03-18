@@ -8,8 +8,8 @@ func _ready() -> void:
 
 
 func _on_play():
-	get_tree().change_scene_to_file("res://Scenes/title_screen.tscn")
+	get_tree().change_scene_to_file("res://Scenes/.tscn")
 	
 
 func _on_instructions():
-	get_tree().change_scene_to_file("")
+	get_tree().change_scene_to_file("res://Scenes/instructions.tscn")
