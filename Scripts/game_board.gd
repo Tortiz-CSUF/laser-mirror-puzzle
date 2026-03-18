@@ -34,8 +34,9 @@ func _input(event: InputEvent):
 			# Rotate mirrors that are rotateable
 			if type in [GameData.PieceType.MIRROR_ROTATE_SINGLE, GameData.PieceType.MIRROR_ROTATE_DOUBLE]:
 				var old_dir: int = data["mirror_dir"]
-				_rotate_mirror(cell)
 				_record_action({"action": "rotate", "cell": cell, "old_dir": old_dir, "new_dir": data["mirror_dir"]})
+				_rotate_mirror(cell)
+				action_history[-1]["new_dir"] = data["mirror_dir"]
 				
 			# Start sliding
 			elif type in [GameData.PieceType.MIRROR_SLIDE_H, GameData.PieceType.MIRROR_SLIDE_V]:
