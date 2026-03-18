@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cifdkrxevklfa"]
 
+[ext_resource type="Script" uid="uid://8ilrhbn2vnru" path="res://Scripts/instructions.gd" id="1_8p7yn"]
+
 [node name="Instructions" type="Control" unique_id=1290669937]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8p7yn")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1858035229]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4509804)
 
 [node name="InstructionsLabel" type="Label" parent="." unique_id=328181929]
 layout_mode = 0
@@ -28,7 +40,7 @@ Your actions are counted. Use undo to reverse your last move, or Reset to start 
 Levels unlock in order. Complete each level to unlock the next."
 autowrap_mode = 2
 
-[node name="InstructionsButton" type="Button" parent="." unique_id=2091710684]
+[node name="BackButton" type="Button" parent="." unique_id=2091710684]
 layout_mode = 0
 offset_left = 490.0
 offset_top = 580.0
