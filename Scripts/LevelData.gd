@@ -64,7 +64,7 @@ var levels: Array = [
 		"height": 6,
 		"pieces": [
 			{"x": 0, "y": 1, "type": "LASER", "laser_dir": "RIGHT", "color_index": 0},
-			{"x": 4, "y": 1, "type": "MIRROR_STATIC_SINGLE", "mirror_dir": "NE", "double_sided": false},
+			{"x": 4, "y": 1, "type": "MIRROR_ROTATE_SINGLE", "mirror_dir": "SE", "double_sided": false},
 			{"x": 4, "y": 4, "type": "GOAL", "color_index": 0},		
 		],
 		"inventory": []
@@ -72,12 +72,13 @@ var levels: Array = [
 	
 	# lVL 3: ROTATABLE MIRROR
 	{
-		"width": 6,
-		"height": 6,
+		"width": 7,
+		"height": 7,
 		"pieces": [
-			{"x": 0, "y": 2, "type": "LASER", "laser_dir": "RIGHT", "color_index": 0},
-			{"x": 3, "y": 3, "type": "MIRROR_ROTATE_SINGLE", "mirror_dir": "NW", "double_sided": false},
-			{"x": 3, "y": 0, "type": "GOAL", "color_index": 0},		
+			{"x": 0, "y": 3, "type": "LASER", "laser_dir": "RIGHT", "color_index": 0},
+			{"x": 3, "y": 3, "type": "MIRROR_STATIC_DOUBLE", "mirror_dir": "NE", "double_sided": true},
+			{"x": 3, "y": 6, "type": "MIRROR_ROTATE_DOUBLE", "mirror_dir": "NW", "double_sided": true},
+			{"x": 6, "y": 6, "type": "GOAL", "color_index": 0},		
 		],
 		"inventory": []
 	},
