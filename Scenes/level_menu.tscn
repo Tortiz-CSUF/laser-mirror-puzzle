@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b6po0vumkhfxt"]
+
+[ext_resource type="Script" uid="uid://d3umek52nix8x" path="res://Scripts/level_menu.gd" id="1_c64aj"]
+
+[node name="LevelMenu" type="Control" unique_id=1381999112]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c64aj")
+
+[node name="MenuTitle" type="Label" parent="." unique_id=913397992]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 30.0
+offset_right = 840.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 30
+text = "Select Level"
+horizontal_alignment = 1
+
+[node name="LevelGrid" type="GridContainer" parent="." unique_id=840461188]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 100.0
+offset_right = 1040.0
+offset_bottom = 600.0
+columns = 5
+
+[node name="BackButton" type="Button" parent="." unique_id=2054820073]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 620.0
+offset_right = 790.0
+offset_bottom = 670.0
+theme_override_font_sizes/font_size = 20
+text = "Back to Title"

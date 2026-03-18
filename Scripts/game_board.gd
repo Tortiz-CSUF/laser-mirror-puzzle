@@ -571,7 +571,7 @@ func _on_retry():
 
 
 func _on_menu():
-	pass 			#will use when level menu built
+	get_tree().change_scene_to_file("res://Scenes/level_menu.tscn")
 	
 	
 ## Inventory System
